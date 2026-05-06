@@ -21,7 +21,7 @@ app.add_middleware(
 )
 
 # Import routers
-from app.api import weather, prediction, historical, mosdac, imd, auth
+from backend.app.api import weather, prediction, historical, mosdac, imd, auth
 
 # Include routers
 app.include_router(auth.router, prefix="/api/auth", tags=["Authentication"])

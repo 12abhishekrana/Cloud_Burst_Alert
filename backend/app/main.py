@@ -1,7 +1,6 @@
-﻿from fastapi import FastAPI
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
-import os
 
 load_dotenv()
 
@@ -11,7 +10,7 @@ app = FastAPI(
     version="2.0.0"
 )
 
-# Allow all origins for development
+# CORS
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:3000", "http://localhost:5173"],
@@ -20,8 +19,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Import routers
-from app.api import weather, prediction, historical, mosdac, imd, auth
+# ✅ FIXED IMPORTS (IMPORTANT)
+from backend.app.api import weather, prediction, historical, mosdac, imd, auth
 
 # Include routers
 app.include_router(auth.router, prefix="/api/auth", tags=["Authentication"])

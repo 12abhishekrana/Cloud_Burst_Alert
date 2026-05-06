@@ -1,7 +1,9 @@
-﻿from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter
 from pydantic import BaseModel
 from datetime import datetime
 from typing import Optional
+
+# ✅ FIXED IMPORT
 from backend.app.services.ml_service import ml_service
 
 router = APIRouter()
@@ -25,36 +27,38 @@ class PredictionResponse(BaseModel):
     warning_hours: int
     message: str
 
+
 @router.post("/predict", response_model=PredictionResponse)
-async def predict_cloudburst(request: PredictionRequest):
+def predict_cloudburst(request: PredictionRequest):
+
     features = {
-        'temperature': request.temperature,
-        'humidity': request.humidity,
-        'pressure': request.pressure,
-        'wind_speed': request.wind_speed,
-        'cloud_cover': request.cloud_cover
+        "temperature": request.temperature,
+        "humidity": request.humidity,
+        "pressure": request.pressure,
+        "wind_speed": request.wind_speed,
+        "cloud_cover": request.cloud_cover
     }
-    
+
     probability = ml_service.predict(features)
-    
+
     if probability > 0.7:
-        risk_level = "HIGH"
-        message = "Immediate action required - High cloudburst risk detected"
-        warning_hours = 2
+        risk = "HIGH"
+        msg = "Immediate action required"
+        hours = 2
     elif probability > 0.4:
-        risk_level = "MEDIUM"
-        message = "Monitor conditions closely - Elevated risk"
-        warning_hours = 4
+        risk = "MEDIUM"
+        msg = "Monitor closely"
+        hours = 4
     else:
-        risk_level = "LOW"
-        message = "Normal conditions - No immediate threat"
-        warning_hours = 6
-    
-    return PredictionResponse(
-        district=request.district,
-        timestamp=datetime.now(),
-        cloudburst_probability=round(probability * 100, 2),
-        risk_level=risk_level,
-        warning_hours=warning_hours,
-        message=message
-    )
+        risk = "LOW"
+        msg = "Normal conditions"
+        hours = 6
+
+    return {
+        "district": request.district,
+        "timestamp": datetime.now(),
+        "cloudburst_probability": round(probability * 100, 2),
+        "risk_level": risk,
+        "warning_hours": hours,
+        "message": msg
+    }

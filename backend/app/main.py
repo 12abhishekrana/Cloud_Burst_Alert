@@ -19,14 +19,14 @@ app.add_middleware(
 )
 
 # ✅ FIXED IMPORTS
-from backend.app.api import weather, prediction, historical, mosdac, imd, auth
+from backend.app.api import weather, prediction, historical, mosdac, auth
 
 app.include_router(auth.router, prefix="/api/auth", tags=["Auth"])
 app.include_router(weather.router, prefix="/api/weather", tags=["Weather"])
 app.include_router(prediction.router, prefix="/api/prediction", tags=["Prediction"])
 app.include_router(historical.router, prefix="/api/historical", tags=["Historical"])
 app.include_router(mosdac.router, prefix="/api/mosdac", tags=["MOSDAC"])
-app.include_router(imd.router, prefix="/api/imd", tags=["IMD"])
+
 
 @app.get("/")
 def root():

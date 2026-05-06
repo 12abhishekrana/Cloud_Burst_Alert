@@ -2,7 +2,7 @@
 from pydantic import BaseModel
 from datetime import datetime
 from typing import Optional
-from app.services.ml_service import ml_service
+from backend.app.services.ml_service import ml_service
 
 router = APIRouter()
 

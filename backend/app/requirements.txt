@@ -1,4 +1,4 @@
-﻿# Core Framework
+# Core Framework
 fastapi==0.104.1
 uvicorn[standard]==0.24.0
 python-dotenv==1.0.0
@@ -11,7 +11,7 @@ python-jose[cryptography]==3.3.0
 passlib[bcrypt]==1.7.4
 python-multipart==0.0.6
 
-# Email
+# Email (compatible with pydantic v1)
 fastapi-mail==1.2.0
 email-validator==1.3.0
 
@@ -23,9 +23,9 @@ pandas==2.0.3
 requests==2.31.0
 httpx==0.25.1
 
-# Utilities
+# Core Validation (FIXED)
 pydantic==1.10.13
 
-# ML (optional - load when needed)
+# ML (optional - stable versions)
 joblib==1.3.2
 scikit-learn==1.3.2
